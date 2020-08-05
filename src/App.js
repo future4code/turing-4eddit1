@@ -4,16 +4,18 @@ import LoginPage from './components/LoginPage/index'
 import PostDetailsPage from './components/PostDetailsPage/index'
 import Posts from './components/Posts/index'
 import SignUpPage from './components/SignUpPage';
+import { CssBaseline } from "@material-ui/core";
 
 
 function App() {
   return (
       <BrowserRouter>
+        <CssBaseline />
         <Switch>
           <Route exact path="/">
             <LoginPage />
           </Route>
-          <Route exact path="/signuppage">
+          <Route exact path="/signup">
             <SignUpPage />
           </Route>
           <Route exact path="/posts">
