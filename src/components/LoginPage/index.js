@@ -55,7 +55,7 @@ export default function LoginPage() {
     <MainContainer>
       <SecondaryContainer>
         <CssBaseline />
-          <Typography variant={'h2'} gutterBottom>LabEddit</Typography>
+          <Typography variant={'h2'} gutterBottom>Entrar no LabEddit</Typography>
           <FormLogin onSubmit={handleLogIn}>
             <TextField
               variant="outlined"
