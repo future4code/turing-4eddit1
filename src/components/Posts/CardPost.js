@@ -57,28 +57,62 @@ const CardPost = () => {
     history.push(`/posts/${postId}`);
   };
   
-  const votePost = (postId, option, putChange) => {
+  const votePositive = (post) => {
     const token = window.localStorage.getItem("token")
-    let body = {}
-    if (putChange === option) {
-    body = {direction: 0}
-  }	else {
-    body = {direction: option}
-  
-        const axiosConfig = {
-            headers: {
-              Authorization: token
-            } 
-  }
-  
-  axios.put(`${baseUrl}/posts/${postId}/vote`, body, axiosConfig)
+    
+    const axiosConfig = {
+        headers: {
+          Authorization: token
+        }
+      }
+    
+    if (post.userVoteDirection === 0) {
+      const body = {
+      direction: 1
+    }
+      axios.put(`${baseUrl}/posts/${post.id}/vote`, body, axiosConfig)
+      .then((response) => {
+        getPosts()
+        })
+      } else {
+        const body = {
+        direction: 0
+      }
+    axios.put(`${baseUrl}/posts/${post.id}/vote`, body, axiosConfig)
     .then((response) => {
       getPosts()
       })
-    .catch((err) => {
-      console.log(err)
-      })
+  }
+  
+  }
+  
+  const voteNegative = (post) => {
+    const token = window.localStorage.getItem("token")
+    
+    const axiosConfig = {
+        headers: {
+          Authorization: token
+        }
+      }
+    
+    if (post.userVoteDirection === 0) {
+      const body = {
+      direction: -1
     }
+      axios.put(`${baseUrl}/posts/${post.id}/vote`, body, axiosConfig)
+      .then((response) => {
+        getPosts()
+        })
+      } else {
+        const body = {
+        direction: 0
+      }
+    axios.put(`${baseUrl}/posts/${post.id}/vote`, body, axiosConfig)
+    .then((response) => {
+      getPosts()
+      })
+  }
+  
   }
 
     return(
@@ -92,9 +126,9 @@ const CardPost = () => {
                             <p>{post.text}</p>
                           </PostSecondaryContainer>
                           <ButtonsContainer>
-                            <button onClick={() => votePost(post.id, -1, post.putChange)}>⬇</button>
+                            <button onClick={() => voteNegative(post)}>⬇</button>
                             <p>{post.votesCount}</p>
-                            <button onClick={() => votePost(post.id, 1, post.putChange)}>⬆</button>
+                            <button onClick={() => votePositive(post)}>⬆</button>
                             <p onClick={() => goToPostDetailsPage(post.id)}>{post.commentsCount} comentarios</p>
                           </ButtonsContainer>
                         </PostContainer>
