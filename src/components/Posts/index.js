@@ -7,19 +7,29 @@ import { useHistory } from "react-router-dom";
 import useForm from '../../hooks/useForm'
 import axios from 'axios'
 
+const baseUrl = `https://us-central1-labenu-apis.cloudfunctions.net/labEddit`
+
 const PostContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 350px;
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  margin-top: 16px;
+  justify-content: center;
+  align-items: center;
 `
 const MainContainer = styled.div`
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 `
-
-const baseUrl = "https://us-central1-labenu-apis.cloudfunctions.net/labEddit"
-
-const Post = () =>{
+const PostButton = styled(Button)`  
+  margin-bottom: 16px;
+`
+const LogoutButton = styled(Button)`
+  position: relative;
+  right: -30vw;
+  top: -1vh;
+`
+const Post = () => {
     const history = useHistory();
     const { form, onChange, resetForm } = useForm({
     title: "",
@@ -63,10 +73,16 @@ const Post = () =>{
     onChange(name, value);
   };
 
+  const handleLogout = () => {
+    window.localStorage.clear();
+    history.push("/");
+  };
+
     return(
 
         <MainContainer>
             <PostContainer>
+            <LogoutButton variant="contained" color="secondary" onClick={handleLogout}>Logout</LogoutButton>
                 <Typography variant={'h2'} gutterBottom>LabEddit</Typography>
                 <form onSubmit={handleCreatePost}>
                     <TextField
@@ -77,8 +93,6 @@ const Post = () =>{
                     margin="normal"
                     required
                     fullWidth
-                    name="title"
-                    id="title"
                     name="title"
                     value={form.title}
                     onChange={handleInputChange}
@@ -92,17 +106,15 @@ const Post = () =>{
                     required
                     fullWidth
                     name="text"
-                    id="text"
-                    name="text"
                     value={form.text}
                     onChange={handleInputChange}
                     />
-                    <Button
+                    <PostButton
                     variant="contained"
                     color="primary"
                     type="submit">
-                        Postar
-                    </Button>
+                      Postar
+                    </PostButton>
                 </form>
                 <CardPost />
             </PostContainer>            

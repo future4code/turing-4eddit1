@@ -58,7 +58,7 @@ const SignUpPage = () =>{
       <MainContainer>
         <LoginFormContainer >
           <CssBaseline />
-          <Typography variant={'h2'} gutterBottom>LabEddit</Typography>
+          <Typography variant={'h2'} gutterBottom>Informe os dados abaixo</Typography>
           <FormSignUp onSubmit={handleSignUp}>
             <TextField
               variant="outlined"
