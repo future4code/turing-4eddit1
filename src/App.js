@@ -6,7 +6,6 @@ import Posts from './components/Posts/index'
 import SignUpPage from './components/SignUpPage';
 import { CssBaseline } from "@material-ui/core";
 
-
 function App() {
   return (
       <BrowserRouter>

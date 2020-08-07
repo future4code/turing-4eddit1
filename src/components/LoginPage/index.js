@@ -9,6 +9,8 @@ import axios from 'axios'
 import { useHistory, Link } from 'react-router-dom';
 import useForm from '../../hooks/useForm'
 
+const baseUrl = `https://us-central1-labenu-apis.cloudfunctions.net/labEddit`
+
 const MainContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -20,7 +22,6 @@ const SecondaryContainer = styled.div`
 const FormLogin = styled.form`
   margin-bottom: 16px;
 `
-const baseUrl = "https://us-central1-labenu-apis.cloudfunctions.net/labEddit"
 
 export default function LoginPage() {
   const history = useHistory();
