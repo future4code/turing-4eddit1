@@ -1,40 +1,24 @@
 import React, { useEffect } from "react";
 import TextField from '@material-ui/core/TextField';
-import { Button, Typography } from '@material-ui/core';
-import styled from 'styled-components'
+import { Typography } from '@material-ui/core';
 import CardPost from './CardPost'
 import { useHistory } from "react-router-dom";
 import useForm from '../../hooks/useForm'
 import axios from 'axios'
+import useGetPosts from "../../hooks/useGetPosts";
+import { PostContainer, MainContainer, PostButton, LogoutButton } from '../Posts/styles'
+import { baseUrl } from '../../constants/index';
 
-const baseUrl = `https://us-central1-labenu-apis.cloudfunctions.net/labEddit`
-
-const PostContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 360px;
-  margin-top: 16px;
-  justify-content: center;
-  align-items: center;
-`
-const MainContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`
-const PostButton = styled(Button)`  
-  margin-bottom: 16px;
-`
-const LogoutButton = styled(Button)`
-  position: relative;
-  right: -30vw;
-  top: -1vh;
-`
 const Post = () => {
     const history = useHistory();
     const { form, onChange, resetForm } = useForm({
     title: "",
     text: ""
   });
+
+  const [postList, getPosts] = useGetPosts(
+    `${baseUrl}/posts`, [], 'posts' 
+  )
 
   useEffect(() => {
     const token = window.localStorage.getItem("token")
@@ -61,6 +45,7 @@ const Post = () => {
     axios.post(`${baseUrl}/posts`, body, axiosConfig)
     .then(() => {
     resetForm()
+    getPosts()
     })
     .catch((err) => {
       console.log(err.message)
@@ -116,7 +101,7 @@ const Post = () => {
                       Postar
                     </PostButton>
                 </form>
-                <CardPost />
+                <CardPost postList={postList} getPosts={getPosts} />
             </PostContainer>            
         </MainContainer>
     )

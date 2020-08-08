@@ -1,73 +1,13 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import useForm from '../../hooks/useForm';
 import TextField from '@material-ui/core/TextField';
 import { Button, Typography } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-
-const baseUrl = `https://us-central1-labenu-apis.cloudfunctions.net/labEddit`
-
-const CardContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding-top: 16px;
-`
-const CommentContainer = styled.div`
-  width: 360px;
-  padding: 16px;
-  margin: 8px;
-  background-color: lightgray;
-`
-const LogoutButton = styled(Button)`
-  position: relative;
-  right: -30vw;
-  top: -1vh;
-`
-const CardMainComment = styled(Paper)`
-  width: 360px;
-  padding: 16px;
-  margin: 8px;
-  background-color: lightgray;
-`
-const Username = styled(Typography)`
-  font-weight: bold;
-  border-bottom: 1px solid gray;
-`
-const Text = styled(Typography)`
-  margin-top: 8px;
-`
-const FooterCard = styled.div`
-  position: relative;
-  bottom: -16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid gray;
-  width: 100%;
-  padding: 4px;
-`
-const ButtonsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-const LikeButton = styled.button`
-  border: none;
-  cursor: pointer;
-  outline: none;
-  background-color: lightgray;
-`
-const VotesCount = styled(Typography)`
-  font-weight: bold;
-`
-const CommentsCount = styled(Typography)`
-  font-weight: bold;
-`
+import { CardContainer, LogoutButton, CardMainComment, Username, Text, CommentsCount, VotesCount, CommentContainer, FooterCard, ButtonsContainer, LikeButton } from '../PostDetailsPage/styles'
+import { baseUrl } from '../../constants/index'
 
 const PostDetailPage = () =>{
     const history = useHistory();
@@ -145,7 +85,7 @@ const PostDetailPage = () =>{
             const body = {
             direction: 0
           }
-         axios.put(`${baseUrl}/posts/${postDetail.id}/comment/${detail.id}/vote`, body, axiosConfig)
+        axios.put(`${baseUrl}/posts/${postDetail.id}/comment/${detail.id}/vote`, body, axiosConfig)
         .then((response) => {
           getPostDetail()
             })
@@ -174,8 +114,8 @@ const PostDetailPage = () =>{
             const body = {
             direction: 0
           }
-         axios.put(`${baseUrl}/posts/${postDetail.id}/comment/${detail.id}/vote`, body, axiosConfig)
-         .then((response) => {
+        axios.put(`${baseUrl}/posts/${postDetail.id}/comment/${detail.id}/vote`, body, axiosConfig)
+        .then((response) => {
           getPostDetail()
           })
       }
@@ -198,14 +138,14 @@ const PostDetailPage = () =>{
         <CardContainer>
         <LogoutButton variant="contained" color="secondary" onClick={handleLogout}>Logout</LogoutButton>
         <Typography variant={'h2'} gutterBottom>LabEddit</Typography>
-        <CardMainComment>
+        {postDetail.length === 0 ? "" : <CardMainComment>
           <Username variant="h4" >{postDetail.username}</Username>
           <Text variant="p" >{postDetail.text}</Text>
           <FooterCard>
-            <CommentsCount variant="p" >Comentários: {postDetail.commentsCount}</CommentsCount>
-            <VotesCount variant="p" >Votos: {postDetail.votesCount}</VotesCount>
+            <Typography variant="p" >Comentários: {postDetail.commentsCount}</Typography>
+            <Typography variant="p" >Votos: {postDetail.votesCount}</Typography>
           </FooterCard>
-        </CardMainComment>
+        </CardMainComment>}
             <form onSubmit={handleCreateComment}>
                 <TextField
                 id="outlined-textarea"
@@ -233,7 +173,7 @@ const PostDetailPage = () =>{
                                         <FooterCard>
                                           <ButtonsContainer>
                                             <LikeButton onClick={() => votePositive(postDetail, detail)}>{detail.userVoteDirection === 1 ? <ArrowUpwardIcon color="primary"/> : <ArrowUpwardIcon />}</LikeButton>
-                                            <VotesCount component="p">{detail.votesCount}</VotesCount>
+                                            <Typography component="p">{detail.votesCount}</Typography>
                                             <LikeButton onClick={() => voteNegative(postDetail, detail)}>{detail.userVoteDirection === -1 ? <ArrowDownwardIcon color="secondary"/> : <ArrowDownwardIcon />}</LikeButton>
                                           </ButtonsContainer>
                                         </FooterCard>

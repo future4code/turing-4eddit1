@@ -1,27 +1,12 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import styled from 'styled-components'
-import { Typography, CssBaseline } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
-import useForm from '../../hooks/useForm'
-
-const baseUrl = "https://us-central1-labenu-apis.cloudfunctions.net/labEddit"
-
-const MainContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
-const LoginFormContainer = styled.div`
-  margin-top: 64px;
-  width: 320px;
-`
-
-const FormSignUp = styled.form`
-  margin-bottom: 16px;
-`
+import useForm from '../../hooks/useForm';
+import { baseUrl } from '../../constants/index';
+import { MainContainer, LoginFormContainer, FormSignUp } from '../SignUpPage/styles';
 
 const SignUpPage = () =>{
   const history = useHistory();
@@ -57,7 +42,6 @@ const SignUpPage = () =>{
     return(
       <MainContainer>
         <LoginFormContainer >
-          <CssBaseline />
           <Typography variant={'h2'} gutterBottom>Informe os dados abaixo</Typography>
           <FormSignUp onSubmit={handleSignUp}>
             <TextField
@@ -67,7 +51,6 @@ const SignUpPage = () =>{
               id="user"
               label="Digite um nome de usuario"
               name="username"
-              autoFocus
               type="text"
               value={form.username}
               onChange={handleInputChange}
@@ -80,7 +63,6 @@ const SignUpPage = () =>{
               id="email"
               label="Informe seu e-mail"
               name="email"
-              autoFocus
               type="email"
               value={form.email}
               onChange={handleInputChange}

@@ -28,7 +28,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
- );
+);
 }
 
 export default App;
