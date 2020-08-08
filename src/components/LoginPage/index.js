@@ -4,26 +4,13 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import styled from 'styled-components'
-import axios from 'axios'
+import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
-import useForm from '../../hooks/useForm'
+import useForm from '../../hooks/useForm';
+import { MainContainer, SecondaryContainer, FormLogin } from '../LoginPage/styles';
+import { baseUrl } from '../../constants/index';
 
-const baseUrl = `https://us-central1-labenu-apis.cloudfunctions.net/labEddit`
-
-const MainContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`
-const SecondaryContainer = styled.div`
-  margin-top: 64px;
-  width: 320px;
-`
-const FormLogin = styled.form`
-  margin-bottom: 16px;
-`
-
-export default function LoginPage() {
+function LoginPage() {
   const history = useHistory();
   const { form, onChange } = useForm({
     email: "",
@@ -107,3 +94,5 @@ export default function LoginPage() {
     </MainContainer>
   );
 }
+
+export default LoginPage;

@@ -8,15 +8,15 @@ const useGetPosts = (url, initialState, dataPost) => {
     const token = window.localStorage.getItem("token")
     const axiosConfig = {
         headers: {
-          Authorization: token
+        Authorization: token
         }  
-      }
+    }
     const getPosts = () => {          
         axios.get(url, axiosConfig, {
         }).then(response => {
             setData(response.data.posts)
         }).catch(err => {
-          console.log(err.message)
+        console.log(err.message)
         })
     }
 
